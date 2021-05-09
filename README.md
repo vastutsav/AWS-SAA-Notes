@@ -9,6 +9,34 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   - [EBS](#ebs)
   - [Instance store](#instance-store)
   - [EFS](#efs)
+  - [Load Balancer](#load-balancer)
+  - [ASG](#asg)
+  - [RDS](#rds)
+  - [Aurora](#aurora)
+  - [Elasticache](#elasticache)
+  - [Route 53](#route-53)
+  - [Elastic Beanstalk](#elastic-beanstalk)
+  - [S3](#s3)
+  - [CloudFront](#cloudfront)
+  - [AWS Global Accelerator](#aws-global-accelerator)
+  - [Snow](#snow)
+  - [Storage Gateway](#storage-gateway)
+  - [Amazon FSx for Windows](#amazon-fsx-for-windows)
+  - [Amazon FSx for Lustre](#amazon-fsx-for-lustre)
+  - [SQS](#sqs)
+  - [SNS](#sns)
+  - [Kinesis](#kinesis)
+  - [MQ](#mq)
+  - [ECS](#ecs)
+  - [Fargate](#fargate)
+  - [ECR](#ecr)
+  - [EKS](#eks)
+  - [Lambda](#lambda)
+  - [DynamoDB](#dynamodb)
+  - [API Gateway](#api-gateway)
+  - [Cognito](#cognito)
+  - [SAM](#sam)
+  - [CloudFront](#cloudfront-1)
 
 ## Global Infrastructure
 
@@ -230,3 +258,75 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   -  Storage Tiers
       - Standard: for frequently accessed file
       - Infrequent access (EFS-IA): cost to retrieve files, lower price to store
+
+
+## Load Balancer
+
+
+## ASG
+- Auto Scaling Groups
+
+## RDS
+
+## Aurora
+
+## Elasticache
+
+## Route 53
+
+## Elastic Beanstalk
+
+## S3
+
+## CloudFront
+
+## AWS Global Accelerator
+
+## Snow
+
+## Storage Gateway
+
+## Amazon FSx for Windows
+
+## Amazon FSx for Lustre
+
+
+## SQS
+
+## SNS
+
+
+## Kinesis
+
+
+## MQ
+
+
+## ECS
+
+## Fargate
+
+
+## ECR
+
+
+## EKS
+
+
+## Lambda
+
+
+## DynamoDB
+
+
+## API Gateway
+
+
+## Cognito
+
+
+## SAM
+
+
+## CloudFront
+
