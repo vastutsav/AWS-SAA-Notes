@@ -2,6 +2,14 @@
 
 _Notes for preparing for AWS Solution Architect Associate Certifications_
 
+- [AWS-SAA-Notes](#aws-saa-notes)
+  - [Global Infrastructure](#global-infrastructure)
+  - [IAM](#iam)
+  - [EC2](#ec2)
+  - [EBS](#ebs)
+  - [Instance store](#instance-store)
+  - [EFS](#efs)
+
 ## Global Infrastructure
 
 - Regions
