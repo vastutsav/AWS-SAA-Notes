@@ -165,7 +165,7 @@ _Notes for preparing for AWS Solution Architect Associate Certifications_
   - to create backup
   - stop EC2 before creating snapshot
   - AMI
-    - AMazon Machine Image
+    - Amazon Machine Image
     - can add your own software, conf, operating system, monitoring
     - has faster boot/configuration time
     - Built for specific region
@@ -196,7 +196,7 @@ _Notes for preparing for AWS Solution Architect Associate Certifications_
 
 ## Instance store
 - better I/O performance
-- ephemeral
+- ephemeral - data lost when instance stopped
 - Good for buffer/cache/ scratch data
 - Risk of data loss if hardware fails
 - Backups and Replication - our responsibility
@@ -209,15 +209,15 @@ _Notes for preparing for AWS Solution Architect Associate Certifications_
 - use case - content management
 - uses NFSv4.1 protocol
 - Compatible with Linux, not Windows
-- Enxryption at rest using KMS
+- Encryption at rest using KMS
 - POSIX file system
 - Storage classes
   - Performance mode
     - general purpose
     - Max I/O
   -  Throughput mode
-     - Bursting
-     - Provisioned
+     - Bursting (1 TB = 50MiB/s + burst of up to 100MiB/s)
+     - Provisioned - set throughput regardless of size
   -  Storage Tiers
       - Standard: for frequently accessed file
       - Infrequent access (EFS-IA): cost to retrieve files, lower price to store
