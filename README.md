@@ -1,6 +1,6 @@
 # AWS-SAA-Notes
 
-_Notes for preparing for AWS Solution Architect Associate Certifications_
+_Personal Notes for preparing for AWS Solution Architect Associate Certifications_
 
 - [AWS-SAA-Notes](#aws-saa-notes)
   - [Global Infrastructure](#global-infrastructure)
