@@ -33,17 +33,17 @@ _Notes for preparing for AWS Solution Architect Associate Certifications_
       - transparent - Key from KMS
       - Snapshots of encrypted EBS is encrypted
       - To create an encrypted EBS from unencrypted
-      - create the encrypted snapshot
-      - create EBS vol from snapshot
-      - attach the EBS vol to the original instance
+        - create the encrypted snapshot
+        - create EBS vol from snapshot
+        - attach the EBS vol to the original instance
    - RAID Options
-   - RAID 0
-    - increases performances
-      - combining multiple volume - getting total space and IO
-      - not fault tolerant
-   - RAID 1
-      - increases falt tolerance
-      - mirroring a volume to another
+      - RAID 0
+        - increases performances
+        - combining multiple volume - getting total space and IO
+        - not fault tolerant
+      - RAID 1
+        - increases falt tolerance
+        - mirroring a volume to another
       - RAID 5, 6 not supported
 
 ## Instance store
