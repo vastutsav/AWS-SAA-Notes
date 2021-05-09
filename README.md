@@ -151,6 +151,7 @@ _Notes for preparing for AWS Solution Architect Associate Certifications_
   - Higher speed EBS - 64000 EBS IOPS
   - better security
 - In EC2, we can change number of CPU cores (decrease licensing costs), or decrease number of threads
+
 ## EBS
 - Elastic Block Store - network drive
 - allows instance to persist data after termination
