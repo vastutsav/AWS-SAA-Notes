@@ -353,19 +353,20 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   - Nw + subnet info
   - Load Balancer info
   - Scaling policy
-- CloudWatch alarms can be used to scale
-  - alarm to monitor metrics for all ASG instances like Avrg CPU
-  - based on alarm - we can increase or decrease the # of instances
-- EC2 managed rules
-  - Target Avg CPU Usage
-  - #of requests on the ELB per instance
-  - Avg Nw In/Out
-- Custom Metric
-  - can create custom metric
-  - send metric from app on EC2 to CloudWath *PutMetric API*
-  - create Cloudwatch alarm to react to low/high values
-  - use CW alarm as the scaling policy
-- Metric can be based on schedule
+- Scaling Metric can be 
+  - CloudWatch alarms can be used to scale
+    - alarm to monitor metrics for all ASG instances like Avrg CPU
+    - based on alarm - we can increase or decrease the # of instances
+  - Scale using EC2 managed rules
+    - Target Avg CPU Usage
+    - #of requests on the ELB per instance
+    - Avg Nw In/Out
+  - Custom Metric
+    - can create custom metric
+    - send metric from app on EC2 to CloudWath *PutMetric API*
+    - create Cloudwatch alarm to react to low/high values
+    - use CW alarm as the scaling policy
+  - Metric can be based on schedule
 - To update ASG, prve new launch configuration/launch template
 - IAM roles on ASG will be assigned to EC2
 - can terminate instances marked as unhealthy by LB
@@ -387,14 +388,84 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   - Can perform steps before the instance goes in service
   - Can perform steps before the instance is terminated
 
-- Launch Configuration must be created everytime
-- Launch Template 
-  - multiple version supported
-  - Create parameter subset - partial configs for re-use or inheritance
-  - Provision using both On-Demand and Spot Instances
-  - Can use T2 unlimited burst feature
+|Launch Configuration| Launch Template|
+|-|-| 
+|must be created everytime|multiple version supported
+||Create parameter subset - partial configs for re-use or inheritance
+||Provision using both On-Demand and Spot Instances
+||Can use T2 unlimited burst feature|
 
 ## RDS
+- Relational Database Service
+- Supports:
+  - Postgres
+  - MySQL
+  - MariaDB
+  - Oracle
+  - MS SQL Server
+  - Aurora (AWS Propriety database)
+
+*WHY Use?*
+- Automated provisioning, OS patching
+- supports continuous Backups - Point in time restore
+  - automatically enabled
+  - daily during maintenance window
+  - transaction logs backed up every 5 minutes
+  - 7 days retention (can be max 35 days)
+- DB snapshots
+  - manually triggered
+  - retention as long as you want
+- monitoring dashboards
+- read replicas for improved read performance
+  - up to 5 replicas
+  - within AZ, Cross AZ, or Cross Region
+  - Async
+  - Replica can be promoted to DB status
+  - Applications must update connection string to leverage read replicas
+  - For SELECT only
+  - Netwrk cost when data goes from one region to another - no fee for within region
+- Disaster recovery - multi AZ setup
+  - SYNC replication
+  - One DNS namme - automatic failover to standby server
+  - increase availability
+  - no manual intervention
+  - not for scaling
+  - Multi-AZ free
+- Vertical and horizontal Scaling
+  - dynamically increased - automatically scaled
+  - have to set Maximum Storage Threshold (maximum limit for DB storage)
+  - useful for unpredictable workloads
+- gp2 or io1 EBS backed
+
+- Can convert Single-AZ RDS to Multi-AZ with zero downtime
+  - a snapshot is taken
+  - a new DB is retired from the snapshot in a new AZ
+  - Synchronization is established between the two DBs
+
+- At rest Encryption
+  - possible with AWS KMS - AES 256 encryption
+  - has to be defined at launch time
+  - if master is not encrypted, the read replicas cannot be encrypted
+  - TDE for Oracle and SQL server
+
+- In flight encryption
+  - SSL cert
+
+- Encrypt RDS backups - copy snapshot and enable encypted
+- Encrypt RDS DB 
+  - create snapshot 
+  - copy snapshot and enable encryption for the snapshot
+  - restore DB from encypted snapshot
+  - Move apps to new DB - delete old DB
+
+- Security
+  - Network Security
+    - deployed in pvt subnet
+    - leverages security groups
+  - Access Management
+    - IAM policies - control who manages AWS RDS
+    - can have tradional Usrname/Password OR IAM-based authentication to login into DB (IAM auth works for MySQL and PostgreSQL)
+
 
 ## Aurora
 
