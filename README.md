@@ -10,6 +10,9 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   - [Instance store](#instance-store)
   - [EFS](#efs)
   - [Load Balancer](#load-balancer)
+    - [Classic Load Balancer](#classic-load-balancer)
+    - [Application load balancer](#application-load-balancer)
+    - [Network Load Balancer](#network-load-balancer)
   - [ASG](#asg)
   - [RDS](#rds)
   - [Aurora](#aurora)
@@ -261,10 +264,135 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
 
 
 ## Load Balancer
+- why?
+  - Spread load across multiple downstream instances
+  - Expose a single point of access (DNS) to your application
+  - handle failures of downstream instances
+  - healthchecks
+  - SSL endpoint
+  - enforce stickiness
+    - Classic and Application load balancers
+    - helps in maintaining session data - redirecting the same client to the same instance
+    - uses cookie - cookie has expiration date
+  - Separate public traffic from private
 
+- Cross Zone load Balancing
+  - when enabled - distributes evenly across instances in all AZ
+
+- SSL Certs 
+  - needed for inflight encryption
+  - can be managed using ACM (AWS Certificate Manager) Or upload own certs
+  - can use Server Name Indication to handle multiple certs for multiple websites - client needs to indicate hostname
+
+- Connection Draining
+  - Time to complete in-flight requests while the instance is deregistering or unhealthy
+  - Stops sending new requests to the instance which is de-registering
+  - 0 to 3600 secs, (default 300) (0 Disabled)
+
+### Classic Load Balancer
+- HTTP/HTTPS, TCP
+- Fixed hostname *XXX.region.elb.amazonaws.com*
+- Classic Load Balancer needed per application
+- Cross Zone load Balancing
+  - through Console - Enabled by default 
+  - through CLI / API - Disabled by default
+  - No charges for inter AZ data if enabled
+- Support only one SSL certificate
+  - Must use multiple CLB for multiple hostname with multiple SSL certificates
+- Connection draining available
+
+### Application load balancer
+- HTTP
+- Fixed hostname *XXX.region.elb.amazonaws.com*
+- load balancing - multiple machines or multiple apps on same machine
+- supports HTTP, WebSocket and redirects (like from HTTP to HTTPS)
+- Routing table - contains routing rules - rules can be based on
+  - path in URL
+  - Hostname in URL
+  - Query String, Headers
+- Targets for Routing can be
+  - EC2 instances
+  - ECS tasks
+  - Lambda Functions
+  - IP Addresses
+- Health checks at target group level
+- Cross Zone load Balancing - Always On
+- SSL Cert - Supports multiple listeners with multiple SSL certificates
+  - Uses Server Name Indication (SNI) to make it work
+- Connection draining is called Deregistration Delay
+- app can see the true details of client in header:
+   |Item| Field|
+   |--|--|
+   |IP|X-Forwarded-For|
+   |Port|X-Forwarded-Port |
+   |proto |X-Forwarded-Proto|
+
+### Network Load Balancer
+- Forward TCP & UDP
+- millions records/sec
+- less latency
+- one static IP / AZ
+- extreme performance
+- Cross Zone load Balancing - Disabled by default - if enabled, charges for inter AZ
+- SSL Cert - Supports multiple listeners with multiple SSL certificates
+  - Uses Server Name Indication (SNI) to make it work
+- Connection draining is called Deregistration Delay
 
 ## ASG
 - Auto Scaling Groups
+- Scale out for increased load, Scale in for decreased load - num of instances is within min and max defined
+- Automatically registers new instances to a load balancer
+- Has attributes:
+  - Defined in a lainch configuration
+    - AMI + Instance Type
+    - EC2 User Data
+    - EBS Volumes
+    - Security Group
+    - SSH Key Pair
+  - Min/Max/initial Capacity
+  - Nw + subnet info
+  - Load Balancer info
+  - Scaling policy
+- CloudWatch alarms can be used to scale
+  - alarm to monitor metrics for all ASG instances like Avrg CPU
+  - based on alarm - we can increase or decrease the # of instances
+- EC2 managed rules
+  - Target Avg CPU Usage
+  - #of requests on the ELB per instance
+  - Avg Nw In/Out
+- Custom Metric
+  - can create custom metric
+  - send metric from app on EC2 to CloudWath *PutMetric API*
+  - create Cloudwatch alarm to react to low/high values
+  - use CW alarm as the scaling policy
+- Metric can be based on schedule
+- To update ASG, prve new launch configuration/launch template
+- IAM roles on ASG will be assigned to EC2
+- can terminate instances marked as unhealthy by LB
+
+- Scaling Policies:
+  - Target Tracking - e.g. avg CPU to stay around 40%
+  - Simple/step Scaling - e.g. When CW alarm is triggered, add 2 units or remove 1 units
+  - Scheduled Actions - e.g increase the min cap to 10 at 5pm on Fridays
+
+ - Scaling Cooldown
+   - ensures ASG does not launch or terminate addn. instances before the prev scaling activity takes effect.
+   - can have scaling specific cooldown period
+ 
+ - ASG balances #of instances across AZ
+   - Default termination Policy - find AZ with most number of instances - delete the one with the oldest launch configuration
+
+- Lifecycle Hooks
+  - By Default, launched instance is in service
+  - Can perform steps before the instance goes in service
+  - Can perform steps before the instance is terminated
+
+- Launch Configuration must be created everytime
+- Launch Template 
+  - multiple version supported
+  - Create parameter subset - partial configs for re-use or inheritance
+  - Provision using both On-Demand and Spot Instances
+  - Can use T2 unlimited burst feature
 
 ## RDS
 
