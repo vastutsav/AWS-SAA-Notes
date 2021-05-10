@@ -405,7 +405,7 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   - MS SQL Server
   - Aurora (AWS Propriety database)
 
-*WHY Use?*
+*<b>WHY Use?</b>*
 - Automated provisioning, OS patching
 - supports continuous Backups - Point in time restore
   - automatically enabled
