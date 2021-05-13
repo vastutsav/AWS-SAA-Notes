@@ -468,6 +468,16 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
 
 
 ## Aurora
+- Postgres and MySQL supported
+- storage automatically grows in increments of 10GB, up to 64TB
+- can have 15 replicas - sub 10 ms replica lag
+- Failover is instantaneous
+- costs more than RDS - more efficient
+- 6 copies across 3 AZ
+  - needs 4 for writes
+  - needs 3 for reads
+  - self haling with p2p replication
+  - 100 of volumes
 
 ## Elasticache
 
