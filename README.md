@@ -469,15 +469,44 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
 
 ## Aurora
 - Postgres and MySQL supported
-- storage automatically grows in increments of 10GB, up to 64TB
 - can have 15 replicas - sub 10 ms replica lag
-- Failover is instantaneous
+- Automatic Failover
 - costs more than RDS - more efficient
 - 6 copies across 3 AZ
   - needs 4 for writes
   - needs 3 for reads
   - self haling with p2p replication
   - 100 of volumes
+- One master takes writes
+- Automated failover for master in less than 30 seconds - a read replica is promoted to be master
+- Master + up to 15 Aurora Read Replicas serve reads
+- Support for Cross Region Replication
+  - useful for disaster recovery
+- Backup and Recovery
+- Isolation and security
+  - Encyption at rest using KMS
+  - Encryption in flight using SSL
+  - can authenticate using IAM token
+  - can't SSH
+- Industry compliance
+- Auto scaling
+  - storage automatically grows in increments of 10GB, up to 64TB
+- Automated Patching with Zero Downtime
+- Advanced Monitoring
+- Routine Maintenance
+- Backtrack - restore data to any point of time without using backups
+- Serverless
+  - pay per second
+  - Automated database instantiation and auto-scaling based on actual usage
+  - for infrequent, unpredictable workloads
+  - No capacity planning needed
+- Aurora Multi-master
+  - for immediate failover
+  - every node performs R/W
+- Global Database
+  - 1 Primary Region (read/write)
+  - upto 5 read-only region
+  - upto 16 Read Replica per secondary region
 
 ## Elasticache
 
