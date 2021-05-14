@@ -509,7 +509,32 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   - upto 16 Read Replica per secondary region
 
 ## Elasticache
+- Redis and Memcached
+- Caches - high performance, low latency
+- fo read intensive workloads
+- AWS takes care of OS maintenance/patching, optimizations, setup, confiuration, monitoring, failure recovery and backups
+- Apps queries ElastiCache - if not present, get from RDS and store in ElastiCache
+- Cache must have an invalidation strategy to make sure most current data is used
+- Redis vs Elasticache
+  |Redis|Memcached|
+  |-|-|
+  |Read Replicas - High Availability|No High availability|
+  |Perstience of data|Non persistent|
+  |Backup and restore| No Backup and restore|
+  |Uses single core|Multi-threaded architecture|
 
+- Security
+  - Does not support IAM authentication
+  - IAM used only for AWS API-level security
+  - REDIS
+    - can set password when creating cluster
+    - in-flight encryption using SSL
+  - Memcached
+    - Supports SASL-based authentication
+- Caching Strategies
+  - Lazy Loading - loads data into the cache only when necessary
+  - Write Through - y adds data or updates data in the cache whenever data is written to the database
+  - TTL - specifies the number of seconds until the key expires
 ## Route 53
 
 ## Elastic Beanstalk
