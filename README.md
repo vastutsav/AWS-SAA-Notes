@@ -575,7 +575,49 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
 ## Elastic Beanstalk
 
 ## S3
-
+- store objects(files) in buckets(like directories).
+- Buckets
+  - globally unique name
+    - no uppercase, or underscore, or IP
+    - 3-63 characters long
+    - start with a lowercase of number
+  - defined at region level
+- Object have
+  - Key - prefix+object name
+  - value are the content of the Object body
+    - max size 5TB
+    - for uploading more than 5GB, use multi-part upload
+  - Metadata
+  - Tags - useful for security/lifecycle
+  - Version ID
+- Versioning of files is enabled at bucket level
+  - Any file that is not versioned prior to enabling versioning will have version “null”
+  - Suspending versioning does not delete the prev versions
+- Objects can be encrypted by using:
+  - SSE-S3 - encryption usig keys handled and managed by AWS
+    - Object encrypted server side
+    - AES-256
+    - Must set header **"x-amz-server-side-encryption": "AES256"**
+  - SSE-KMS - using KMS to manage keys
+    - user control + audit trail
+    - encrypted server side
+    - Must set header **"x-amz-server-side-encryption": ”aws:kms"**
+  - SSE-C - you manage keys
+    - server side encryption
+    - S3 does not store the encryption key you provide
+    - HTTPS mandatory
+    - Encryption key to be provided in headers
+  - CLient side encryption
+    - Clients must encrypt data themselves before sending, and decrypt data themselves when retrieving
+    - uses AmazonS3EncryptionClient
+-  S3 exposes HTTP and HTTPS endpoints
+-  S3 access can be defined using:
+   -  IAM policies
+   -  Bucket policies
+      -  JSON based policies
+      -  Allow/Deny a Principal on a Resource
+   -  Object Access Control List
+   -  Bucket Access Control List
 ## CloudFront
 
 ## AWS Global Accelerator
