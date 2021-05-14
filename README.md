@@ -536,6 +536,41 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   - Write Through - y adds data or updates data in the cache whenever data is written to the database
   - TTL - specifies the number of seconds until the key expires
 ## Route 53
+- Domain Name System
+- helps client understand how to reach a server through URLs using collection of rules and records
+  - A: hostname to IPV4
+  - AAAA: hostname to IPV6
+  - CNAME: hostname to hostname
+  - Alias: hostname to AWS resource
+- can use public domain names you own or private domain names that can be resolved in your VPC
+- Load balancing
+- Health check
+- Routing policy
+  - Simple Routing Policy
+    - Maps a hostname to another hostname
+    - Use when you need to redirect to a single resource
+    - can't attach health checks
+  - Weighted Routing Policy
+    - Control the % of the requests that go to sprcific endpoint
+    - Can be associated with Health Checks
+  - Latency Routing Policy
+    - Redirect to the server that has the least latency close to us
+  - Failover Routing Policy
+    - route traffic to a resource when the resource is healthy or to a different resource when the first resource is unhealthy.
+  - Geo Location Routing Policy
+    - routing based on user location
+    - should create a default policy
+  - Geo Proximity Routing Policy
+    - Route traffic to your resources based on the geographic location of users and resources
+    - Can choose to route more traffic or less to a given resource by specifying a value, known as a bias
+    - To use geoproximity routing, you must use **Route 53 traffic flow**
+  - Multi-value Routing Policy
+    - Use when routing traffic to multiple resources
+    - Associate health checks with the records
+    - up to 8 healthy records are returned
+- Can use Route 53 with domain bought from a 3rd party
+  - Create a hosted zone in Route 53
+  - Update NS Records on 3rd party website to use Route 53 name servers
 
 ## Elastic Beanstalk
 
