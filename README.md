@@ -20,6 +20,7 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   - [Route 53](#route-53)
   - [Elastic Beanstalk](#elastic-beanstalk)
   - [S3](#s3)
+  - [Athena](#athena)
   - [CloudFront](#cloudfront)
   - [AWS Global Accelerator](#aws-global-accelerator)
   - [Snow](#snow)
@@ -717,7 +718,40 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   - daily report
 - S3 - KMS limitation
   - All key upload and download activity is counted towards the KMS quota per second - quota can not be increased
-- 
+- Multi Part upload
+  - for files > 100MB, must for > 5GB
+  - helps parallelize uploads
+- Transfer Accelaration
+  - Increase transfer speed by transferring file to an AWS edge location which will forward the data to the S3 bucket in teh target region
+  - Compatible with multi-part upload
+- Byte range fetches
+  - Parallelize GETs by requesting specific byte ranges
+  - better resilience in case of failures
+  - can be used to retrieve only partial data
+- S3 Select & Glacier Select
+  - Retrieve less data using SQL - server side filtering
+  - less network transfer, less CPU cost client-side
+- In case of **Requester Pays** buckets, the requester instead of bucket owner pays the cost of the request
+  - the requester must be authenticated in AWS
+- Glacier Vault Lock
+  - Adopt a Write Once Read Many model
+  - lock the policy for future edits
+  - helpful for compliance and data retention
+- S3 object lock
+  - versioning must be enabled
+  - block an object version deletion for a specified amount of time
+  - Object retention - Retention period(fixed period) or Legal Hold(no fixed period)
+  - Modes
+    - Governance mode - can't overwrite or delete object version or alter lock permissions unless they have special permissions
+    - Compliance mode - object version cannot be overwritten or deleted by any user, including root user.
+      - retention mode can't be changed - retention period can't be shortened
+
+## Athena
+- Serverless service to **perform analysis directly against S3 files**
+- Uses SQL language to query the files
+- JDBC/ODBC driver
+- charged per query and amount of data scanned
+- supports CSV, JSON, ORC, Avro, and Parquet
 
 ## CloudFront
 
