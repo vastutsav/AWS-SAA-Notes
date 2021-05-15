@@ -46,7 +46,7 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
 
 - Regions
   - us-east-1, eu-west-3
-  - has min 2, max 6, usually 3
+  - has min 2, max 6, usually 3 AZ
   - cluster of data centers
   - choose region based on Complianced, Promixity, Available services, Pricing
 - Availability Zones
