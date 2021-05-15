@@ -20,6 +20,7 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   - [Route 53](#route-53)
   - [Elastic Beanstalk](#elastic-beanstalk)
   - [S3](#s3)
+  - [Athena](#athena)
   - [CloudFront](#cloudfront)
   - [AWS Global Accelerator](#aws-global-accelerator)
   - [Snow](#snow)
@@ -472,6 +473,7 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
 - can have 15 replicas - sub 10 ms replica lag
 - Automatic Failover
 - costs more than RDS - more efficient
+- pay as you go
 - 6 copies across 3 AZ
   - needs 4 for writes
   - needs 3 for reads
@@ -495,6 +497,10 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
 - Advanced Monitoring
 - Routine Maintenance
 - Backtrack - restore data to any point of time without using backups
+- Types of endpoint:
+  - Cluster endpoint - supports writing/reading 
+  - Reader endpoint - supports reading from one of the the Read Replicas - acts as a load balancer
+  - Custom endpoint - a set of DB instances that you choose - load balancer
 - Serverless
   - pay per second
   - Automated database instantiation and auto-scaling based on actual usage
@@ -618,6 +624,135 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
       -  Allow/Deny a Principal on a Resource
    -  Object Access Control List
    -  Bucket Access Control List
+- Supports VPC Endpoints
+- Access Logs can be stored in other S3 buket
+- API call can be logged in AWS CLoudTrail
+- User Security
+  - MFA Delete - can be required in versioned bucket to delete objects
+  - Pre-Signed URLs: URLs that are valid only for a limited time
+- S3 can host static websites
+  - *\<bucket-name\>.s3-website-\<AWS-region\>.amazonaws.com* OR *\<bucket-name\>.s3-website.\<AWS-region\>.amazonaws.com*
+- S3 CORS
+  - Cross-Origin Resource Sharing
+  - An origin is a scheme(protocol), host(domain) and port
+  - Web Browser based mechanism to allow requests to other origins while visiting the main origin
+  - The requests won't be fulfilled unless the other origin allows for the requests, using CORS Headers *(Access-Control-Allow-Origin)*
+  - If a client does a cross-origin request on our S3 bucket, we need to enable the correct CORS headers
+  - can allow for a specific origin or for * (all origins)
+- Consistency Model
+  - read after write consistency
+  - list consistency
+- MFA Delete
+  - when versioning enabled
+  - for permanently deleting object version
+  - for suspending versioning
+  - only bucket owner can enable/diable - enable from CLI only
+- Acess Logs
+  - can log all access to S3 buckets
+  - will be logged into another S3 bucket
+- Replication
+  - must enable versioning in source and destination
+  - Cross Region Replication
+  - Same Region Replication
+  - Buckets can be in different accounts
+  - Copying is asynchronous
+  - Must give proper IAM permissions to S3
+  - After activation only new objects are replicated
+  - Delete operations not replicated - with version, a delete marker is added
+  - No chaining of replications
+- Pre-Signed URLs
+  - Can generate pre-signed URLs using SDK or CLI
+  - Default 3600 seconds validity, can be set using TIME_BY_SECONDS argument
+  - with presigned URL, user inherits the permissions of the creator
+- S3 Storage classes
+  - S3 Standard - General Purpose
+    - High durability across multiple AZ
+    - 99.99% Availability
+    - Sustain 2 concurrent faciity failures
+  - S3 Standard - Infrequent Access
+    - when data is less frequently accessed, but requires rapid access when needed
+    - High durability across multiple AZ
+    - 99.9% Availability
+    - lower cost than S3 Standard
+    - Sustain 2 concurrent facility failures
+    - Retrival fee per GB retrieved
+  - S3 One-Zone - Infrequest Access
+    - same as IA, but stored in single AZ
+    - High durability - but data lost when AZ is destroyed
+    - 99.5% Availability
+    - Low latency and high throughput performance
+    - Low cost compared to IA
+    - Retrieval fee per GB retrieved
+  - S3 Intelligent Tiering
+    - low latency and high throughput same as S3 Standard
+    - small monthly monitoring and auto-tiering fee
+    - automatically moves objects between two access tiers based on changing access patterns
+    - High durability
+    - Retrival fee per GB retrieved
+  - Glacier
+    - low cost storage - archiving and backup
+    - data retained for longer term
+    - each item is called Archive
+    - Archives are stored in Vaults
+    - Minimum storage duration of 90 days
+    - Retrival fee per GB retrieved
+    - Retrieval options
+      - Expedited (1 to 5 minutes)
+      - Standard (3 to 5 hours)
+      - Bulk (5 to 12 hours)
+  - Glacier Deep Archive
+    - for long term storage - cheaper
+    - min storage of 180 days
+    - Retrieval options
+      - Standard (12 Hours)
+      - Bulk (48 hours)
+    - Retrival fee per GB retrieved
+
+- Moving objects between different storage tiers can be automated using **lifecycle configuration**
+  - Transition actions - defines when objects are transitioned to another storage class
+  - Expiration actions - configure objects to expire(delete) after some time
+  - Rules can be created for certain prefix (s3://mybucket/mp3*) or object tags (Department:Finance)
+- S3 Analytics
+  - Storage class analytics to help determine when to transition objects
+  - does not work for One zone or Glacier
+  - daily report
+- S3 - KMS limitation
+  - All key upload and download activity is counted towards the KMS quota per second - quota can not be increased
+- Multi Part upload
+  - for files > 100MB, must for > 5GB
+  - helps parallelize uploads
+- Transfer Accelaration
+  - Increase transfer speed by transferring file to an AWS edge location which will forward the data to the S3 bucket in teh target region
+  - Compatible with multi-part upload
+- Byte range fetches
+  - Parallelize GETs by requesting specific byte ranges
+  - better resilience in case of failures
+  - can be used to retrieve only partial data
+- S3 Select & Glacier Select
+  - Retrieve less data using SQL - server side filtering
+  - less network transfer, less CPU cost client-side
+- In case of **Requester Pays** buckets, the requester instead of bucket owner pays the cost of the request
+  - the requester must be authenticated in AWS
+- Glacier Vault Lock
+  - Adopt a Write Once Read Many model
+  - lock the policy for future edits
+  - helpful for compliance and data retention
+- S3 object lock
+  - versioning must be enabled
+  - block an object version deletion for a specified amount of time
+  - Object retention - Retention period(fixed period) or Legal Hold(no fixed period)
+  - Modes
+    - Governance mode - can't overwrite or delete object version or alter lock permissions unless they have special permissions
+    - Compliance mode - object version cannot be overwritten or deleted by any user, including root user.
+      - retention mode can't be changed - retention period can't be shortened
+
+## Athena
+- Serverless service to **perform analysis directly against S3 files**
+- Uses SQL language to query the files
+- JDBC/ODBC driver
+- charged per query and amount of data scanned
+- supports CSV, JSON, ORC, Avro, and Parquet
+
 ## CloudFront
 
 ## AWS Global Accelerator
