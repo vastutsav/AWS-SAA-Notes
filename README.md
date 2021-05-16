@@ -432,6 +432,7 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   - no manual intervention
   - not for scaling
   - Multi-AZ free
+  - *Multi AZ keeps the same connection string regardless of which database is up. Read Replicas imply we need to reference them individually in our application as each read replica will have its own DNS name*
 - Vertical and horizontal Scaling
   - dynamically increased - automatically scaled
   - have to set Maximum Storage Threshold (maximum limit for DB storage)
@@ -528,10 +529,11 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   |Perstience of data|Non persistent|
   |Backup and restore| No Backup and restore|
   |Uses single core|Multi-threaded architecture|
-
+- REDIS sorted sets - guarantees uniqueness and element ordering 
+  - each time a new element is added, it is ranked in real time, then added in correct order
 - Security
-  - Does not support IAM authentication
-  - IAM used only for AWS API-level security
+  - Does not support IAM authentication - any operation within cache is not using IAM
+  - IAM used only for AWS API-level security - for deleting the cache
   - REDIS
     - can set password when creating cluster
     - in-flight encryption using SSL
@@ -543,6 +545,7 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
   - TTL - specifies the number of seconds until the key expires
 ## Route 53
 - Domain Name System
+- Global service
 - helps client understand how to reach a server through URLs using collection of rules and records
   - A: hostname to IPV4
   - AAAA: hostname to IPV6
@@ -577,6 +580,14 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
 - Can use Route 53 with domain bought from a 3rd party
   - Create a hosted zone in Route 53
   - Update NS Records on 3rd party website to use Route 53 name servers
+
+- CNAME vs ALIAS
+  - |CNAME|ALIAS|
+    |-|-|
+    |Points a hostname to another hostname|Points a hostname to another AWS resource|
+    |Only for NON-ROOT domain|Works for ROOT and NON-ROOT|
+    |Charged|Free of charge|
+    |No native health check| Native Health Check|
 
 ## Elastic Beanstalk
 
