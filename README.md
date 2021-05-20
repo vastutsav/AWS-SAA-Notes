@@ -193,7 +193,7 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
 - In EC2, we can change number of CPU cores (decrease licensing costs), or decrease number of threads
 
 ## EBS
-- Elastic Block Store - network drive
+- Elastic Block Store - network drive - used by EC2 instance
 - allows instance to persist data after termination
 - bound to one AZ
   - To move, need to create Snapshot
