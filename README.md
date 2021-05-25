@@ -1,6 +1,6 @@
 # AWS-SAA-Notes
 
-*Estimated reading time: 30 minutes*
+                    *Estimated reading time: 30 minutes*
 
 _Personal Notes for preparing for AWS Solution Architect Associate Certifications_
 
