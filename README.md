@@ -195,7 +195,7 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
 - In EC2, we can change number of CPU cores (decrease licensing costs), or decrease number of threads
 
 ## EBS
-- Elastic Block Store - network drive
+- Elastic Block Store - network drive - used by EC2 instance
 - allows instance to persist data after termination
 - bound to one AZ
   - To move, need to create Snapshot
@@ -591,6 +591,16 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
     |Charged|Free of charge|
     |No native health check| Native Health Check|
 
+- Health Checks
+  - Have X health checks failed => unhealthy (default 3)
+  - After X health checks passed => health (default 3)
+  - Default Health Check Interval: 30s (can set to 10s – higher cost)
+  - About 15 health checkers will check the endpoint health
+    - one request every 2 seconds on average
+  - Can have HTTP, TCP and HTTPS health checks (no SSL verification)
+  - Possibility of integrating the health check with CloudWatch
+  - Health checks can be linked to Route53 DNS queries!
+  - In health check, the resource is pinged from health checkers in different locations.
 ## Elastic Beanstalk
 
 ## S3
