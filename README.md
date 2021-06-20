@@ -777,6 +777,70 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
 - supports CSV, JSON, ORC, Avro, and Parquet
 
 ## CloudFront
+- Content Delivery Network
+- Improves read performance - cached at edge
+- DDoS protection, integration with Shield (AWS Web Application Firewall)
+- can expose HTTPS and can talk to internal HTTPS backends
+- Cloudfront Origins
+  - S3 Bucket
+    - For distributing files and caching them at the edge
+    - Enhanced security with CloudFront Origin Access Identity (OAI)
+    - can be used as an ingress (to upload files to S3)
+  - Custom Origin (HTTP)
+    - Application Load Balancer
+    - EC2 instance
+    - S3 website
+    - Any HTTP backend you want
+  - Geo Restriction
+    - Whitelist - Allow your users to access your content
+    - Blacklist - Prevent users from accessing content
+      - *the country is determined using 3rd party Geo-IP database*
+      - *Use case: Copyright laws to control access to content*
+  - Cloudfront vs S3 Cross Region Replication
+    - Cloudfront
+      - Global edge network
+      - Files are cached for a TTL
+      - **Great for static content that must be available everywhere**
+    - S3 Cross Region Replication
+      - Must be setup for each region you want replication to happen
+      - Files are updated in near real-time
+      - Read Only
+      - **Great for dynamic content that needs to be available at low-latency in few regions.**
+  - CloudFront Signed URL/Signed Cookies
+    - distribute paid shared content to premium users over the world
+    - attach a policy with:
+      - URL expiration
+      - IP ranges to access the data from
+      - Trusted signers (which AWS accounts can create signed URLs)
+    - signed urls = access to individual files
+    - signed cookies = access to multiple files
+  - CloudFront signed URL vs S3 Pre-Signed URL
+    - Cloudfront
+      - ALlow access to a path, no matter the origin
+      - Account wide key-pair, only the root can manage it
+      - Can filter by IP, path, date, expiration
+      - Can leverage caching features
+    - S3
+      - Issue a request as the person who pre-signed the URL
+      - Uses the IAM key of the signing IAM principal
+      - Limited Lifetime
+  - Price Classes
+    - Price Class All - all regions - best performance
+    - Price Class 200 - most regions, but excludes the most expensive regions
+    - Price Class 100 - only the least expensive regions
+  - CloudFront - Multiple Origin
+    - To route to different kind of origins based on the content type or path pattern
+  - Origin Groups
+    - One primary and one secondary
+    - if the primary fails, then the secondary one is used
+    - increases high-availability - enables failover
+  - Field Level Encryption
+    - Protect user sensitive information through application stack
+    - Adds an additional layer of security along with HTTPS
+    - Sensitive information is encrypted at edge - close to the user
+    - Assymetric encryption
+    - The number of fields are specified in the header - max 10 fields
+    - the public key is also placed in the header
 
 ## AWS Global Accelerator
 
