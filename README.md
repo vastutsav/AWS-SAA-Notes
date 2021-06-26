@@ -845,6 +845,7 @@ _Personal Notes for preparing for AWS Solution Architect Associate Certification
 ## AWS Global Accelerator
   - Leverage the AWS internal network to route to your application
   - 2 Anycast IP - IP sends traffic directly to Edge Locations - send traffic to your application
+  - 
 ## Snow
 
 ## Storage Gateway
